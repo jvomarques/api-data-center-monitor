@@ -11,37 +11,39 @@
 
 namespace Symfony\Component\HttpKernel\Profiler;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
-use Symfony\Contracts\Service\ResetInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Profiler.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Profiler implements ResetInterface
+class Profiler
 {
     private $storage;
 
     /**
      * @var DataCollectorInterface[]
      */
-    private $collectors = [];
+    private $collectors = array();
 
     private $logger;
     private $initiallyEnabled = true;
     private $enabled = true;
 
-    public function __construct(ProfilerStorageInterface $storage, LoggerInterface $logger = null, bool $enable = true)
+    /**
+     * @param bool $enable  The initial enabled state
+     */
+    public function __construct(ProfilerStorageInterface $storage, LoggerInterface $logger = null, $enable = true)
     {
         $this->storage = $storage;
         $this->logger = $logger;
-        $this->initiallyEnabled = $this->enabled = $enable;
+        $this->initiallyEnabled = $this->enabled = (bool) $enable;
     }
 
     /**
@@ -101,7 +103,7 @@ class Profiler implements ResetInterface
         }
 
         if (!($ret = $this->storage->write($profile)) && null !== $this->logger) {
-            $this->logger->warning('Unable to store the profiler information.', ['configured_storage' => \get_class($this->storage)]);
+            $this->logger->warning('Unable to store the profiler information.', array('configured_storage' => get_class($this->storage)));
         }
 
         return $ret;
@@ -157,10 +159,6 @@ class Profiler implements ResetInterface
             $profile->setIp('Unknown');
         }
 
-        if ($prevToken = $response->headers->get('X-Debug-Token')) {
-            $response->headers->set('X-Previous-Debug-Token', $prevToken);
-        }
-
         $response->headers->set('X-Debug-Token', $profile->getToken());
 
         foreach ($this->collectors as $collector) {
@@ -176,6 +174,10 @@ class Profiler implements ResetInterface
     public function reset()
     {
         foreach ($this->collectors as $collector) {
+            if (!method_exists($collector, 'reset')) {
+                continue;
+            }
+
             $collector->reset();
         }
         $this->enabled = $this->initiallyEnabled;
@@ -196,9 +198,9 @@ class Profiler implements ResetInterface
      *
      * @param DataCollectorInterface[] $collectors An array of collectors
      */
-    public function set(array $collectors = [])
+    public function set(array $collectors = array())
     {
-        $this->collectors = [];
+        $this->collectors = array();
         foreach ($collectors as $collector) {
             $this->add($collector);
         }
@@ -209,6 +211,10 @@ class Profiler implements ResetInterface
      */
     public function add(DataCollectorInterface $collector)
     {
+        if (!method_exists($collector, 'reset')) {
+            @trigger_error(sprintf('Implementing "%s" without the "reset()" method is deprecated since version 3.4 and will be unsupported in 4.0 for class "%s".', DataCollectorInterface::class, \get_class($collector)), E_USER_DEPRECATED);
+        }
+
         $this->collectors[$collector->getName()] = $collector;
     }
 

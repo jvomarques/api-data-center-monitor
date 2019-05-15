@@ -1,0 +1,10 @@
+ANOTATIONS.TXT
+
+1) Criar Model: php artisan make:model Oficinas_Servicos -m --resource
+3) Criar Interface;
+4) Criar Repository;
+5) Configurar no BaseRepository.php;
+6) Configurar a Model;
+7) Configurar a Rotas;
+8) atualizar o Seeds;
+9) Atualizar o AppServiceProvider;

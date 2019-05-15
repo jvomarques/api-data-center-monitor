@@ -11,6 +11,21 @@
 |
 */
 
+Route::get('api/v1', function () {
+    return 'API';
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'v1/auth', 'middleware' => 'web'], function () {
+    Route::get('/facebook', 'AuthenticateController@redirectToProvider');
+    Route::get('/facebook/callback', 'AuthenticateController@handleProviderCallback');
+});
+
+//SendMail
+ //Route::get('/email','SendMailController@sendMailApp');
