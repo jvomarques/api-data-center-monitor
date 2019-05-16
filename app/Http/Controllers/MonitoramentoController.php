@@ -3,83 +3,33 @@
 namespace API\Http\Controllers;
 
 use API\Monitoramento;
+use API\Repositories\Contracts\MonitoramentoRepositoryInterface;
 use Illuminate\Http\Request;
 
 class MonitoramentoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function show(MonitoramentoRepositoryInterface $repository, $id)
     {
-        //
+        return $repository->show($id);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function showAll(MonitoramentoRepositoryInterface $repository)
     {
-        //
+        return $repository->showAll();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(MonitoramentoRepositoryInterface $repository, Request $request)
     {
-        //
+        return $repository->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \API\Monitoramento  $monitoramento
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Monitoramento $monitoramento)
+    public function update(MonitoramentoRepositoryInterface $repository, Request $request, $id)
     {
-        //
+        return $repository->update($request, $id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \API\Monitoramento  $monitoramento
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Monitoramento $monitoramento)
+    public function delete(MonitoramentoRepositoryInterface $repository, $id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \API\Monitoramento  $monitoramento
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Monitoramento $monitoramento)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \API\Monitoramento  $monitoramento
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Monitoramento $monitoramento)
-    {
-        //
+        return $repository->delete($id);
     }
 }

@@ -24,6 +24,8 @@ use API\Oficinas_Montadoras;
 use API\Oficinas_Servicos;
 use API\User_Onesignal;
 
+use API\Monitoramento;
+
 class BaseRepository
 {
     protected $JWTAuth;
@@ -45,7 +47,9 @@ class BaseRepository
     protected $oficinasservicos;
     protected $userOnesignal;
 
-    public function __construct(JWTAuth $JWTAuth, User $user, Servicos $servicos, Cidades $cidades, Bairros $bairros, Cores $cores, Marcas $marcas, Modelos $modelos, Veiculos $veiculos, Montadoras $montadoras, Oficinas $oficinas, Categorias $categorias, Comissoes $comissoes, Atendimentos $atendimentos, Situacoes $situacoes, Avaliacoes $avaliacoes, Atendimentos_Servicos $atendimentosServicos, Atendimentos_Oficinas $atendimentosoficinas, Oficinas_Montadoras $oficinasmontadoras, Oficinas_Servicos $oficinasservicos, User_Onesignal $userOnesignal)
+    protected $monitoramento;
+
+    public function __construct(Monitoramento $monitoramento, JWTAuth $JWTAuth, User $user, Servicos $servicos, Cidades $cidades, Bairros $bairros, Cores $cores, Marcas $marcas, Modelos $modelos, Veiculos $veiculos, Montadoras $montadoras, Oficinas $oficinas, Categorias $categorias, Comissoes $comissoes, Atendimentos $atendimentos, Situacoes $situacoes, Avaliacoes $avaliacoes, Atendimentos_Servicos $atendimentosServicos, Atendimentos_Oficinas $atendimentosoficinas, Oficinas_Montadoras $oficinasmontadoras, Oficinas_Servicos $oficinasservicos, User_Onesignal $userOnesignal)
     {
         $this->JWTAuth = $JWTAuth;
         $this->user = $user;
@@ -68,5 +72,7 @@ class BaseRepository
         $this->oficinasmontadoras = $oficinasmontadoras;
         $this->oficinasservicos = $oficinasservicos;
         $this->userOnesignal = $userOnesignal;
+
+        $this->monitoramento = $monitoramento;
     }
 }

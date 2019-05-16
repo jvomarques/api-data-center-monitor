@@ -5,6 +5,7 @@ ANOTATIONS.TXT
 4) Criar Repository;
 5) Configurar no BaseRepository.php;
 6) Configurar a Model;
+7) Configurar Controller
 7) Configurar a Rotas;
 8) atualizar o Seeds;
 9) Atualizar o AppServiceProvider;

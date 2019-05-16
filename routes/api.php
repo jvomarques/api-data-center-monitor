@@ -10,6 +10,15 @@ Route::group(['prefix' => 'v1/auth', 'middleware' => 'web'], function () {
     Route::get('/facebook/callback', 'AuthenticateController@handleProviderCallback');
 });
 
+//Monitoramento
+Route::group(['prefix' => 'v1/monitoramento', 'middleware' => 'jwt.auth'], function () {
+    Route::get('{id}', 'MonitoramentoController@show')->where('id', '[0-9]+');
+    Route::get('/', 'MonitoramentoController@showAll');
+    Route::put('{id}', 'MonitoramentoController@update');
+    Route::delete('{id}', 'MonitoramentoController@delete');
+});
+
+
 //Usuarios
 Route::post('v1/users', 'UserController@store');
 Route::group(['prefix' => 'v1/users', 'middleware' => 'jwt.auth'], function () {
