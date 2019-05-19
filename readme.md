@@ -1,4 +1,4 @@
-# API DATA CENTER MONITOR
+# API - Data center monitor
 
 This is a embedded systens project of Computer Science course from UFRN.
 
