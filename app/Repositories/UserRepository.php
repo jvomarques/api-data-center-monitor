@@ -60,41 +60,41 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
         $data = $request->all();
         $data['senha'] = Hash::make($data['senha']);
 
-        // $validator = Validator::make($data, [
-        //     'nome' => 'required',
-        //     'email' => 'required|unique:user',
-        //     'senha' => 'required',
-        //     'cpf' => 'sometimes|required',
-        //     'logradouro' => 'sometimes|required',
-        //     'complemento' => 'sometimes|required',
-        //     'bairro' => 'sometimes|required',
-        //     'numero' => 'sometimes|required',
-        //     'cidade' => 'sometimes|required',
-        //     'cep' => 'sometimes|required',
-        //     'uf' => 'sometimes|required',
-        //     'telefone1' => 'sometimes|required',
-        //     'telefone2' => 'sometimes|required',
-        // ]);
+        $validator = Validator::make($data, [
+            'nome' => 'required',
+            'email' => 'required|unique:user',
+            'senha' => 'required',
+            'cpf' => 'sometimes|required',
+            'logradouro' => 'sometimes|required',
+            'complemento' => 'sometimes|required',
+            'bairro' => 'sometimes|required',
+            'numero' => 'sometimes|required',
+            'cidade' => 'sometimes|required',
+            'cep' => 'sometimes|required',
+            'uf' => 'sometimes|required',
+            'telefone1' => 'sometimes|required',
+            'telefone2' => 'sometimes|required',
+        ]);
 
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'status' => 'fail',
-        //         'data' => [
-        //             'nome' => 'required',
-        //             'email' => 'required|unique:user',
-        //             'senha' => 'required',
-        //             'cpf' => 'sometimes|required',
-        //             'logradouro' => 'sometimes|required',
-        //             'complemento' => 'sometimes|required',
-        //             'bairro' => 'sometimes|required',
-        //             'numero' => 'sometimes|required',
-        //             'cidade' => 'sometimes|required',
-        //             'cep' => 'sometimes|required',
-        //             'uf' => 'sometimes|required',
-        //             'telefone1' => 'sometimes|required',
-        //             'telefone2' => 'sometimes|required',
-        //         ]], 400);
-        // }
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'fail',
+                'data' => [
+                    'nome' => 'required',
+                    'email' => 'required|unique:user',
+                    'senha' => 'required',
+                    'cpf' => 'sometimes|required',
+                    'logradouro' => 'sometimes|required',
+                    'complemento' => 'sometimes|required',
+                    'bairro' => 'sometimes|required',
+                    'numero' => 'sometimes|required',
+                    'cidade' => 'sometimes|required',
+                    'cep' => 'sometimes|required',
+                    'uf' => 'sometimes|required',
+                    'telefone1' => 'sometimes|required',
+                    'telefone2' => 'sometimes|required',
+                ]], 400);
+        }
 
         $create = $this->user->create($data);
 

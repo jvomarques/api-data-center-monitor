@@ -31,15 +31,15 @@ final class MonitoramentoRepository extends BaseRepository implements Monitorame
     {
         $data = $request->all();
         
-        // $validator = Validator::make($data, [
-        //     'nome' => 'required',
-        // ]);
+        $validator = Validator::make($data, [
+            'umidade' => 'required',
+        ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'fail',
                 'data' => [
-                    'nome' => 'required',
+                    'umidade' => 'required',
                 ]], 400);
         }
 

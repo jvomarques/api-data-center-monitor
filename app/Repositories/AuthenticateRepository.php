@@ -16,16 +16,15 @@ final class AuthenticateRepository extends BaseRepository implements Authenticat
 
         $user = $this->user->where('email', $data['email'])->first();
 
-        dd($user);
+        // dd($user);
 
         if (count($user) > 0 && Hash::check($data['senha'], $user->senha)) {
             $token = $this->JWTAuth->fromUser($user);
 
-            $userId = $user->id_user;
+            // $userId = $user->id_user;
             
             return response()->json(['status' => 'success', 'data' => [
-                'token' => $token,
-                'user_id' => "$userId"    
+                'token' => $token  
                 ]], 200);
         }
 
@@ -58,8 +57,7 @@ final class AuthenticateRepository extends BaseRepository implements Authenticat
                 $userId = $user->id_user;
                 
                 return response()->json(['status' => 'success', 'data' => [
-                    'token' => $token,
-                    'user_id' => "$userId"    
+                    'token' => $token 
                     ]], 200);
             }
 
@@ -82,8 +80,7 @@ final class AuthenticateRepository extends BaseRepository implements Authenticat
                 $userId = $user->id_user;
                 
                 return response()->json(['status' => 'success', 'data' => [
-                    'token' => $token,
-                    'user_id' => "$userId"    
+                    'token' => $token  
                     ]], 200);
             }
 

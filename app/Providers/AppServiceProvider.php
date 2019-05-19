@@ -36,5 +36,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('API\Repositories\Contracts\OficinasMontadorasRepositoryInterface', 'API\Repositories\OficinasMontadorasRepository');
         $this->app->bind('API\Repositories\Contracts\OficinasServicosRepositoryInterface', 'API\Repositories\OficinasServicosRepository');
         $this->app->bind('API\Repositories\Contracts\UserOnesignalRepositoryInterface', 'API\Repositories\UserOnesignalRepository');
+
+        $this->app->bind('API\Repositories\Contracts\MonitoramentoRepositoryInterface', 'API\Repositories\MonitoramentoRepository');
+
     }
 }
