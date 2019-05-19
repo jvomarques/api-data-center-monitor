@@ -37,36 +37,6 @@ Route::group(['prefix' => 'v1/userscpf'], function () {
 });
 
 
-//Veiculos
-Route::group(['prefix' => 'v1/veiculos', 'middleware' => 'jwt.auth'], function () {
-    Route::post('/', 'VeiculosController@store');
-    Route::get('{id}', 'VeiculosController@show')->where('id', '[0-9]+');
-    Route::get('user/{user_id}', 'VeiculosController@showUserId')->where('user_id', '[0-9]+');
-    Route::get('/', 'VeiculosController@showAll');
-    Route::put('{id}', 'VeiculosController@update');
-    Route::delete('{id}', 'VeiculosController@delete');
-});
-
-//Atendimentos
-Route::group(['prefix' => 'v1/atendimentos', 'middleware' => 'jwt.auth'], function () {
-    Route::post('/', 'AtendimentosController@store');
-    Route::get('{id}', 'AtendimentosController@show')->where('id', '[0-9]+');
-    Route::get('user/{user_id}', 'AtendimentosController@showUserId')->where('user_id', '[0-9]+');
-    Route::get('/', 'AtendimentosController@showAll');
-    Route::put('{id}', 'AtendimentosController@update');
-    Route::delete('{id}', 'AtendimentosController@delete');
-});
-
-//AtendimentosServicos
-Route::group(['prefix' => 'v1/atendimentosservicos', 'middleware' => 'jwt.auth'], function () {
-    Route::post('/', 'AtendimentosServicosController@store');
-    Route::get('{id}', 'AtendimentosServicosController@show')->where('id', '[0-9]+');
-    Route::get('atendimentos/{atendimento_id}','AtendimentosServicosController@showAtendimentosId')->where('atendimento_id', '[0-9]+');
-    Route::get('/', 'AtendimentosServicosController@showAll');
-    Route::put('{id}', 'AtendimentosServicosController@update');
-    Route::delete('{id}', 'AtendimentosServicosController@delete');
-});
-
 //SendMail
 Route::group(['prefix' => 'v1/sendmail', 'middleware' => 'jwt.auth'], function () {
     Route::post('/','SendMailController@sendMailApp');
